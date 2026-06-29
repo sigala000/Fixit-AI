@@ -1,0 +1,171 @@
+project:
+  name: "FIXIT AI AGENT"
+  tagline: "An AI-powered artisan matching and repair management platform for homes and businesses."
+  track: "Agents for Business"
+  scoring_objectives:
+    category_1:
+      name: "The Pitch"
+      max_points: 30
+      criteria:
+        - "Strong business use case"
+        - "Clear real-world impact"
+        - "Agent-centric design"
+        - "Video Presentation (explanation, value, architecture)"
+        - "Writeup (communication, architecture, presentation)"
+    category_2:
+      name: "The Implementation"
+      max_points: 70
+      criteria:
+        - "High-quality architecture"
+        - "Proper agent design"
+        - "Meaningful MCP usage"
+        - "Security implementation"
+        - "Well-structured code"
+        - "Documentation (README, diagrams, setup, deployment guides)"
+
+constraints:
+  cost: "Free-tier services only (Zero budget)"
+  gcp: "No GCP deployment required (but ADK is used, running on localhost or free tiers)"
+  apis: "No paid APIs, no paid SMS, no paid email"
+  database: "MongoDB Atlas Free Tier or Localhost"
+  hosting: "Localhost, GitHub, Vercel Free Tier (Frontend), Render Free Tier (Backend)"
+
+problem:
+  description: "Customers in Cameroon and other African countries struggle to find trusted, skilled, and fairly priced artisans/technicians."
+  challenges:
+    - "Difficulty describing repair issues"
+    - "Difficulty finding the right artisan"
+    - "Uncertainty about repair costs"
+    - "Scheduling problems"
+    - "Lack of trust and transparency"
+  business_impact:
+    - "Lost revenue due to downtime"
+    - "Slow response times"
+    - "Poor service coordination"
+    - "Inefficient technician assignment"
+
+solution:
+  description: "AI-powered artisan dispatching and repair management platform."
+  core_features:
+    - "Understand repair requests (NLP & image upload)"
+    - "Diagnose probable issues and urgency"
+    - "Match customers with proximity-based certified artisans"
+    - "Generate itemized cost estimates (labor, parts, travel)"
+    - "Schedule conflict-free appointments"
+    - "Provide intelligent customer support"
+    - "Track repair history"
+    - "Generate business and operational analytics"
+
+seed_data_requirements:
+  technicians:
+    minimum: 50
+    cities: ["Douala", "Yaoundé", "Bafoussam", "Kribi", "Limbe", "Garoua", "Bamenda", "Bertoua"]
+    categories:
+      - "Electricians"
+      - "Plumbers"
+      - "Carpenters"
+      - "Welders"
+      - "Solar Technicians"
+      - "AC Technicians"
+      - "Refrigeration Technicians"
+      - "Painters"
+      - "Masons"
+      - "Appliance Repair Specialists"
+    fields:
+      - "Full Name"
+      - "Skill Category"
+      - "Experience"
+      - "Rating"
+      - "Availability"
+      - "City"
+      - "Phone Number"
+      - "Certifications"
+      - "Service Areas"
+      - "Profile Image URL"
+  repair_requests:
+    minimum: 100
+  appointments:
+    minimum: 50
+  reviews:
+    minimum: 200
+  estimates:
+    minimum: 100
+
+multi_agent_architecture:
+  framework: "Google ADK (Agent Development Kit)"
+  agents:
+    - name: "Intake Agent"
+      description: "Collects issue descriptions, analyzes images, extracts symptoms, and asks clarifying questions."
+    - name: "Diagnosis Agent"
+      description: "Determines the probable issue, severity, urgency, confidence score, and category."
+    - name: "Technician Matching Agent"
+      description: "Recommends best artisans using skill, availability, proximity, ratings, and experience; explains reasoning."
+    - name: "Cost Estimation Agent"
+      description: "Generates itemized repair quotes covering labor, parts, travel, and total range."
+    - name: "Scheduling Agent"
+      description: "Manages technician calendars, prevents double-booking, and schedules/confirms appointments."
+    - name: "Customer Support Agent"
+      description: "Answers customer queries, explains estimates, and provides booking status updates."
+    - name: "Business Analytics Agent"
+      description: "Generates operations reports (common repairs, utilization, satisfying trends, revenue projections)."
+
+mcp_server:
+  type: "Model Context Protocol Server"
+  tools:
+    - name: "Technician Tool"
+      functions: ["Search technicians", "Get profile", "Get ratings"]
+    - name: "Pricing Tool"
+      functions: ["Retrieve pricing", "Generate estimates"]
+    - name: "Appointment Tool"
+      functions: ["Create appointment", "Update appointment", "Cancel appointment"]
+    - name: "Location Tool"
+      functions: ["Calculate artisan distance", "Rank by proximity"]
+    - name: "Notification Tool"
+      functions: ["Generate in-app notifications", "Appointment reminders", "Status updates", "Dashboard alerts"]
+
+security_requirements:
+  - "Authentication (JWT)"
+  - "Authorization (Role-based)"
+  - "Input validation & sanitization"
+  - "Prompt injection protection for ADK agents"
+  - "MCP permission controls"
+  - "Secure API key and credentials management (.env)"
+  - "Rate limiting on API endpoints"
+
+tech_stack:
+  frontend: "React + Tailwind CSS"
+  backend: "Node.js + Express"
+  ai: "Google Gemini + Google ADK"
+  database: "MongoDB Atlas (Free Tier)"
+  auth: "JWT"
+  deployment: "Vercel (Frontend), Render (Backend), Localhost"
+
+frontend_pages:
+  - "Landing Page"
+  - "Customer Dashboard"
+  - "Technician Dashboard"
+  - "Admin Dashboard"
+  - "Repair Request Page"
+  - "Estimate Page"
+  - "Appointment Page"
+  - "Analytics Dashboard"
+  - "Login Page"
+  - "Registration Page"
+  - "Notification Center"
+
+deliverables:
+  - "Full System Architecture & Diagrams"
+  - "Monorepo Folder Structure"
+  - "Google ADK Implementation"
+  - "MCP Server Implementation"
+  - "React + Tailwind CSS Frontend"
+  - "Node.js + Express Backend"
+  - "MongoDB Mongoose Models"
+  - "Database Seeding Scripts (npm run seed)"
+  - "Security & Sanitization Layer"
+  - "Docker Setup (Dockerfile & docker-compose.yml)"
+  - "CI/CD Pipeline Configurations"
+  - "Comprehensive README.md"
+  - "Kaggle Capstone Writeup"
+  - "5-Minute YouTube Demo Video Script"
+  - "Local & Free-Tier Deployment Guides"

@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: fixit-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - fixit-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: fixit-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/fixit
+      - JWT_SECRET=fixit_super_secret_key_12345
+      - NODE_ENV=production
+      - AGENT_SERVICE_URL=http://agent:8000
+    depends_on:
+      - mongodb
+    networks:
+      - fixit-network
+
+  agent:
+    build:
+      context: ./agent
+      dockerfile: ../docker/agent.Dockerfile
+    container_name: fixit-agent
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - MONGODB_URI=mongodb://mongodb:27017/fixit
+    networks:
+      - fixit-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    container_name: fixit-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - fixit-network
+
+volumes:
+  mongo-data:
+
+networks:
+  fixit-network:
+    driver: bridge
