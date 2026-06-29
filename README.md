@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🔧 FIXIT AI
 
@@ -6,7 +6,7 @@
 
 [![Google ADK](https://img.shields.io/badge/Google%20ADK-Agent%20Framework-4285F4?logo=google&logoColor=white)](https://google.github.io/adk-docs/)
 [![Gemini](https://img.shields.io/badge/Gemini%202.0-Flash-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
-[![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-FF6F00?logo=data:image/svg+xml;base64,&logoColor=white)](https://modelcontextprotocol.io/)
+[![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-FF6F00)](https://modelcontextprotocol.io/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -76,6 +76,8 @@ The platform guides every repair request through 6 intelligent stages:
   <img src="docs/workflow.png" alt="FIXIT AI Repair Request Workflow" width="800"/>
 </div>
 
+<br/>
+
 | Step | Agent | What Happens |
 |------|-------|-------------|
 | **1. Submit Request** | Intake Agent | Customer describes the issue or uploads an image. The agent extracts symptoms and asks clarifying questions. |
@@ -92,6 +94,8 @@ The platform guides every repair request through 6 intelligent stages:
 <div align="center">
   <img src="docs/architecture.png" alt="FIXIT AI System Architecture" width="800"/>
 </div>
+
+<br/>
 
 The system follows a layered architecture with clear separation of concerns:
 
@@ -251,7 +255,7 @@ Fixit-AI/
 │
 ├── docker-compose.yml          # Full-stack orchestration
 ├── package.json                # Root monorepo scripts
-└── README.md                   # ← You are here
+└── README.md
 ```
 
 ---
@@ -262,11 +266,11 @@ Fixit-AI/
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| **Node.js** | ≥ 18 | Backend + Frontend + MCP Server |
-| **Python** | ≥ 3.11 | Google ADK agent runtime |
+| **Node.js** | >= 18 | Backend + Frontend + MCP Server |
+| **Python** | >= 3.11 | Google ADK agent runtime |
 | **uv** | latest | Python package manager |
-| **MongoDB** | ≥ 7 | Database (local or Atlas) |
-| **Docker** | ≥ 24 | Optional containerized deployment |
+| **MongoDB** | >= 7 | Database (local or Atlas) |
+| **Docker** | >= 24 | Optional containerized deployment |
 
 ### 1. Clone the Repository
 
@@ -284,6 +288,7 @@ cd Fixit-AI
 ### 3. Set Up Environment Variables
 
 **Agent** (`agent/.env`):
+
 ```env
 GOOGLE_API_KEY=your_gemini_api_key_here
 GOOGLE_GENAI_USE_VERTEXAI=False
@@ -291,6 +296,7 @@ MONGODB_URI=mongodb://localhost:27017/fixit
 ```
 
 **Backend** (`backend/.env`):
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/fixit
 JWT_SECRET=your_jwt_secret_here
@@ -298,6 +304,7 @@ PORT=5000
 ```
 
 **MCP Server** (`mcp_server/.env`):
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/fixit
 ```
@@ -325,11 +332,13 @@ This populates MongoDB with **50+ technicians**, **100+ repair requests**, **200
 ### 6. Run the Platform
 
 **Option A — All services at once (recommended):**
+
 ```bash
 npm run dev
 ```
 
 **Option B — Run services individually:**
+
 ```bash
 # Terminal 1: Backend API
 npm run dev:backend        # → http://localhost:5000
@@ -342,6 +351,7 @@ npm run dev:agent          # → http://localhost:8000
 ```
 
 **Option C — Docker Compose:**
+
 ```bash
 docker compose up --build
 ```
@@ -353,19 +363,22 @@ docker compose up --build
 Base URL: `http://localhost:5000/api`
 
 ### Authentication
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/auth/register` | Register a new user (customer/technician) |
 | `POST` | `/auth/login` | Authenticate and receive JWT token |
 
 ### Technicians
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/technicians` | List all technicians |
 | `GET` | `/technicians/:id` | Get technician profile + reviews |
-| `GET` | `/technicians/search?category=&city=` | Search by skill & location |
+| `GET` | `/technicians/search?category=&city=` | Search by skill and location |
 
 ### Repair Requests
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/requests` | Submit a new repair request |
@@ -374,12 +387,14 @@ Base URL: `http://localhost:5000/api`
 | `PATCH` | `/requests/:id` | Update request status |
 
 ### Estimates
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/estimates` | List cost estimates |
 | `POST` | `/estimates` | Create a new estimate |
 
 ### Appointments
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/appointments` | List appointments |
@@ -387,11 +402,13 @@ Base URL: `http://localhost:5000/api`
 | `PATCH` | `/appointments/:id` | Update appointment status |
 
 ### Analytics
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/analytics` | Get operational analytics (admin) |
 
 ### Notifications
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/notifications` | Get user notifications |
@@ -418,12 +435,14 @@ Base URL: `http://localhost:5000/api`
 ## 🌍 Deployment
 
 ### Frontend → Vercel (Free)
+
 ```bash
 cd frontend
 npx vercel --prod
 ```
 
 ### Backend → Render (Free)
+
 1. Push to GitHub
 2. Connect repo on [render.com](https://render.com)
 3. Set build command: `npm install`
@@ -431,6 +450,7 @@ npx vercel --prod
 5. Add environment variables in Render dashboard
 
 ### Docker (Full Stack)
+
 ```bash
 docker compose up --build -d
 ```
@@ -494,4 +514,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 *FIXIT AI — Connecting communities with trusted artisans through the power of AI*
 
 </div>
-]]>
